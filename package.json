@@ -4,7 +4,7 @@
   "description": "vue project",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/ElinaLuo/vue-calendar-custom.git"
   },
   "main": "./src/calendar.vue",
   "author": {
@@ -49,8 +49,8 @@
     "build": "webpack --config ./webpack.config.js"
   },
   "bugs": {
-    "url": "http:///issues"
+    "url": "https://github.com/ElinaLuo/vue-calendar-custom/issues"
   },
-  "homepage": "http://",
+  "homepage": "https://github.com/ElinaLuo/vue-calendar-custom",
   "license": "Apache-2.0"
 }
