@@ -9,12 +9,12 @@
 
         <div>
             <span>单选/英文/事件</span>
-            <calendar :events="calendar1.events" :lunar="calendar1.lunar" :value="calendar1.value" :begin="calendar1.begin" :end="calendar1.end" :weeks="calendar1.weeks" :months="calendar1.months" @select="calendar1.select"></calendar>
+            <calendar :events="calendar1.events" :separator="calendar1.separator" :lunar="calendar1.lunar" :value="calendar1.value" :begin="calendar1.begin" :end="calendar1.end" :weeks="calendar1.weeks" :months="calendar1.months" @select="calendar1.select" @changeMonth="calendar1.changeMonth"></calendar>
         </div>
 
         <div>
             <span>单选/中文</span>
-            <calendar :events="calendar2.events" :begin="calendar2.begin" :end="calendar2.end" @select="calendar2.select"></calendar>
+            <calendar :events="calendar2.events" :separator="calendar2.separator" :begin="calendar2.begin" :end="calendar2.end" @select="calendar2.select" @changeMonth="calendar2.changeMonth"></calendar>
         </div>
 
         <div>
@@ -57,6 +57,7 @@ export default {
         return {
             calendar1:{
                 value:[2017,8,16], //默认日期
+                separator: '/',
                 // lunar:true, //显示农历
                 weeks:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -65,6 +66,9 @@ export default {
                 },
                 select(value){
                     console.log(value.toString());
+                },
+                changeMonth(obj){
+                    console.log(obj)
                 }
             },
             calendar2:{
@@ -72,11 +76,15 @@ export default {
                 lunar:true, //显示农历
                 // begin:[2017,2,16], //可选开始日期
                 // end:[2019,2,16], //可选结束日期
+                separator: '/',
                 events:{
                     '2017-08-04':'￥408','2017-08-15':'￥460','2017-08-16':'￥500'
                 },
                 select(value){
                     console.log(value);
+                },
+                changeMonth(obj){
+                    console.log(obj)
                 }
             },
             calendar3:{

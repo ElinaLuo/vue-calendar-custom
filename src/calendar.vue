@@ -340,6 +340,7 @@ export default {
                 this.month = parseInt(this.month) - 1
             }
             this.render(this.year, this.month)
+            this.$emit('changeMonth', {year: this.year, month: this.month})
         },
         //  下月
         next(e) {
@@ -351,6 +352,7 @@ export default {
                 this.month = parseInt(this.month) + 1
             }
             this.render(this.year, this.month)
+            this.$emit('changeMonth', {year: this.year, month: this.month})
         },
         // 选中日期
         select(k1, k2, e) {
