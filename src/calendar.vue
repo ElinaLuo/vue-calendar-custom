@@ -413,7 +413,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="less" rel="stylesheet/less" scoped>
 .calendar {
     margin:auto;
     width: 350px;

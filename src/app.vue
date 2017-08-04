@@ -136,7 +136,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" rel="stylesheet/less">
 /*demo*/
 .flex{
     box-sizing: border-box;
