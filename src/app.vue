@@ -62,7 +62,7 @@ export default {
                 weeks:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 events:{
-                    '2017-08-14':'$408','2017-08-15':'$460','2017-08-16':'$500'
+                    '2017/08/14':'$408','2017/08/15':'$460','2017/08/16':'$500'
                 },
                 select(value){
                     console.log(value.toString());
@@ -76,7 +76,7 @@ export default {
                 lunar:true, //显示农历
                 // begin:[2017,2,16], //可选开始日期
                 // end:[2019,2,16], //可选结束日期
-                separator: '/',
+                separator: '-',
                 events:{
                     '2017-08-04':'￥408','2017-08-15':'￥460','2017-08-16':'￥500'
                 },

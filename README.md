@@ -24,7 +24,6 @@ begin | array | [] | 否 | 日历限制的开始日期，格式同value
 end | array | [] | 否 | 日历限制的结束日期，格式同value
 range | Bool | false | 否 | 是否展示日历区间
 separator | string | - | 否 | 日期分隔符，默认为-，为事件select的返回值所用
-zero | Bool | true | 否 | 月和日为单数时，是否补0
 lunar | Bool | false | 否 | 是否显示农历
 weeks | array | [] | 否 | 自定义周展示文案，从周日到周六
 months | array | [] | 否 | 自定义月份展示文案，从一月到十二月

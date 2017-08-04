@@ -38,15 +38,15 @@
             </thead>
             <tr v-for="(day,k1) in days">
                 <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled}" @click="select(k1,k2,$event)">
-                    <span>{{child.day}}</span>
-                    <div class="text" v-if="child.eventName!=undefined">{{child.eventName}}</div>
-                    <div class="text" :class="{'isLunarFestival':child.isLunarFestival,'isGregorianFestival':child.isGregorianFestival}" v-if="lunar">{{child.lunar}}</div>
+                    <div v-if="!child.disabled">
+                        <span>{{child.day}}</span>
+                        <div class="text">{{ events[`${year}${separator}${(month >= 9) ? (month + 1) : '0' + (month + 1)}${separator}${child.day > 10 ? child.day : '0' + child.day}`] }}</div>
+                        <div class="text" :class="{'isLunarFestival':child.isLunarFestival,'isGregorianFestival':child.isGregorianFestival}" v-if="lunar">{{child.lunar}}</div>
+                    </div>
                 </td>
             </tr>
             </table>
         </div>
- 
- 
     </div>
 </template>
 
@@ -76,10 +76,6 @@ export default {
             type: Boolean,
             default: false
         },
-        zero:{
-            type: Boolean,
-            default: true
-        },
         lunar: {
             type: Boolean,
             default: false
@@ -87,13 +83,13 @@ export default {
         weeks: {
             type: Array,
             default:function(){
-                return window.navigator.language.toLowerCase() == "zh-cn"?['周日', '周一', '周二', '周三', '周四', '周五', '周六']:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                return ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             }
         },
         months:{
             type: Array,
             default:function(){
-                return window.navigator.language.toLowerCase() == "zh-cn"?['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                return ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
             }
         },
         events:  {
@@ -109,6 +105,7 @@ export default {
     },
     data() {
         return {
+            zero: true,
             year: 0,
             month: 0,
             day: 0,
@@ -203,8 +200,7 @@ export default {
                         // console.log("第一行",lunarYear,lunarMonth,lunarValue,lunarInfo)
                         temp[line].push(Object.assign(
                             {day: k,disabled: true},
-                            this.getLunarInfo(this.month==0?this.year-1:this.year,this.month==0?12:this.month,k),
-                            this.getEvents(this.month==0?this.year-1:this.year,this.month==0?12:this.month,k),
+                            this.getLunarInfo(this.month==0?this.year-1:this.year,this.month==0?12:this.month,k)
                         ))
                         k++;
                     }
@@ -215,8 +211,7 @@ export default {
                     // console.log("日期范围",this.getLunarInfo(this.year,this.month+1,i))
                     let options = Object.assign(
                         {day: i},
-                        this.getLunarInfo(this.year,this.month+1,i),
-                        this.getEvents(this.year,this.month+1,i),
+                        this.getLunarInfo(this.year,this.month+1,i)
                      )
                     if (this.rangeBegin.length > 0) {
                         let beginTime = Number(new Date(this.rangeBegin[0], this.rangeBegin[1], this.rangeBegin[2]))
@@ -246,8 +241,7 @@ export default {
                         // console.log("匹配上次选中的日期",lunarYear,lunarMonth,lunarValue,lunarInfo)
                         temp[line].push(Object.assign(
                             {day: i,selected: true},
-                            this.getLunarInfo(this.year,this.month+1,i),
-                            this.getEvents(this.year,this.month+1,i),
+                            this.getLunarInfo(this.year,this.month+1,i)
                         ))
                         this.today = [line, temp[line].length - 1]
                     }
@@ -257,8 +251,7 @@ export default {
                         // console.log("今天",lunarYear,lunarMonth,lunarValue,lunarInfo)
                         temp[line].push(Object.assign(
                             {day: i,selected: true},
-                            this.getLunarInfo(this.year,this.month+1,i),
-                            this.getEvents(this.year,this.month+1,i),
+                            this.getLunarInfo(this.year,this.month+1,i)
                         ))
                         this.today = [line, temp[line].length - 1]
                     }else{
@@ -266,8 +259,7 @@ export default {
                         // console.log("设置可选范围",i,lunarYear,lunarMonth,lunarValue,lunarInfo)
                         let options = Object.assign(
                             {day: i,selected:false},
-                            this.getLunarInfo(this.year,this.month+1,i),
-                            this.getEvents(this.year,this.month+1,i),
+                            this.getLunarInfo(this.year,this.month+1,i)
                         )
                         if (this.begin.length>0) {
                             let beginTime = Number(new Date(parseInt(this.begin[0]),parseInt(this.begin[1]) - 1,parseInt(this.begin[2])))
@@ -289,8 +281,7 @@ export default {
                         // console.log("最后一行",lunarYear,lunarMonth,lunarValue,lunarInfo)
                         temp[line].push(Object.assign(
                             {day: k,disabled: true},
-                            this.getLunarInfo(this.month+2>11?this.year+1:this.year,this.month+2>11?1:this.month+2,k),
-                            this.getEvents(this.month+2>11?this.year+1:this.year,this.month+2>11?1:this.month+2,k),
+                            this.getLunarInfo(this.month+2>11?this.year+1:this.year,this.month+2>11?1:this.month+2,k)
                         ))
                         k++
                     }
@@ -318,18 +309,18 @@ export default {
                 isGregorianFestival:isGregorianFestival,
             }
         },
-        // 获取自定义事件
-        getEvents(y,m,d){
-            if(Object.keys(this.events).length==0)return false;
-            const d1 = y+"-"+m+"-"+d
-            const d2 = y+"-"+this.zeroPad(m)+"-"+this.zeroPad(d)
-            if(this.events[d1]!=undefined || this.events[d2]!=undefined){
-                return {
-                    eventName:this.events[d1] || this.events[d2]
-                }
-            }
-            return {}
-        },
+        // // 获取自定义事件
+        // getEvents(y,m,d){
+        //     if(Object.keys(this.events).length==0)return false;
+        //     const d1 = y+"-"+m+"-"+d
+        //     const d2 = y+"-"+this.zeroPad(m)+"-"+this.zeroPad(d)
+        //     if(this.events[d1]!=undefined || this.events[d2]!=undefined){
+        //         return {
+        //             eventName:this.events[d1] || this.events[d2]
+        //         }
+        //     }
+        //     return {}
+        // },
         // 上月
         prev(e) {
             e.stopPropagation()
