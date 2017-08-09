@@ -40,7 +40,7 @@
                 <td v-for="(child,k2) in day" :class="{'selected':child.selected,'disabled':child.disabled}" @click="select(k1,k2,$event)">
                     <div v-if="!child.disabled">
                         <span>{{child.day}}</span>
-                        <div class="text">{{ events[`${year}${separator}${(month >= 9) ? (month + 1) : '0' + (month + 1)}${separator}${child.day > 10 ? child.day : '0' + child.day}`] }}</div>
+                        <div class="text">{{ events[`${year}${separator}${(month >= 9) ? (month + 1) : '0' + (month + 1)}${separator}${child.day >= 10 ? child.day : '0' + child.day}`] }}</div>
                         <div class="text" :class="{'isLunarFestival':child.isLunarFestival,'isGregorianFestival':child.isGregorianFestival}" v-if="lunar">{{child.lunar}}</div>
                     </div>
                 </td>
